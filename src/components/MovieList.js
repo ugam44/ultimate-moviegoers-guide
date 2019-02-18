@@ -1,14 +1,29 @@
-import React from "react";
+import React, { Component } from "react";
+import Movie from "./Movie";
 
-let MovieList = ({ movies }) => (
-  <div>
-    <h3>Movies List</h3>
-    {movies.map(movie => {
-      return (
-        <Movie movie={movie} />
-      )
-    })}
-  </div>
-)
+export default class MovieList extends Component {
+  constructor() {
+    super();
+  }
 
-export default MovieList;
+  componentDidMount() {
+    // this.props.getMovies();
+  }
+
+  render () {
+    let {movies, page, totalPages, totalResults} = this.props.movieListData;
+    return (
+      <div>
+        <h3>Movies List</h3>
+        <div style={{display: "flex", flexWrap: "wrap", justifyContent: "space-around"}}>
+          {movies.map((movie, index) => {
+            return (
+              <Movie key={index} movie={movie} />
+            )
+          })}
+        </div>
+      </div>
+    )
+  }
+}
+

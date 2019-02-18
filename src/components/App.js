@@ -3,7 +3,7 @@ import { connect } from "react-redux";
 import logo from '../assets/images/logo.svg';
 import { changeName } from "../actions";
 import '../assets/styles/App.css';
-var api_key = "89835e8482c6060a7265d6ebd1e42cb4";
+import VisibleMovieList from '../containers/VisibleMovieList';
 
 let App = ({dispatch, name}) => {
 
@@ -35,6 +35,7 @@ let App = ({dispatch, name}) => {
           </form>
         </div>
       </header>
+      <VisibleMovieList />
     </div>
   );
 }
