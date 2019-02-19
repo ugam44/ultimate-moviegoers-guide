@@ -1,6 +1,6 @@
 import { connect } from 'react-redux'
 import Button from '../components/Button';
-import { getMovies, setSearchTerm, setFilter } from '../actions';
+import { getMovies } from '../actions';
 
 const mapStateToProps = (state, ownProps) => ({
   active: ownProps.filter === state.visibilityFilter
@@ -8,8 +8,6 @@ const mapStateToProps = (state, ownProps) => ({
 
 const mapDispatchToProps = (dispatch, ownProps) => ({
   onClick: () => {
-    dispatch(setSearchTerm(ownProps.children));
-    dispatch(setFilter(ownProps.filter));
     dispatch(getMovies({movieFilter: ownProps.filter}));
   }
 })

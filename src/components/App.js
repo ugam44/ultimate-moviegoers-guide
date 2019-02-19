@@ -3,12 +3,14 @@ import { connect } from "react-redux";
 import '../assets/styles/App.css';
 import VisibleMovieList from '../containers/VisibleMovieList';
 import SearchMovies from '../containers/SearchMovies';
+import SelectedMovie from '../containers/SelectedMovie';
 
 let App = ({selectedMovie}) => {
   return (
     <div className="container" style={{padding: "20px"}}>
       <SearchMovies />
-      <VisibleMovieList />
+      {!selectedMovie && <VisibleMovieList />}
+      {selectedMovie && <SelectedMovie />}
     </div>
   );
 }

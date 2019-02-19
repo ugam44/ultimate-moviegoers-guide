@@ -1,10 +1,11 @@
 import React from "react";
-import Movie from "./Movie";
+import MovieListItem from "./MovieListItem";
 import "../assets/styles/MovieList.css";
 
 let MovieList = ({movies, currentPage, totalPages, totalResults, searchTerm, onPageChange, filter}) => {
   let handlePageChange = (event, page) => {
-    if (page !== "..." && !event.target.classList.contains("disabled")) {
+    // if valid page, and not same as current, and not disabled, then allow the page change
+    if (page !== "..." && page !== currentPage && !event.target.classList.contains("disabled")) {
       onPageChange(page, filter);
     }
   }
@@ -53,7 +54,7 @@ let MovieList = ({movies, currentPage, totalPages, totalResults, searchTerm, onP
       </nav>
         {movies.map((movie, index) => {
           return (
-            <Movie key={index} movie={movie}/>
+            <MovieListItem key={index} movie={movie}/>
           )
         })}		
       </section>

@@ -5,6 +5,7 @@ export let GET_TOP_RATED = "GET_TOP_RATED";
 export let GET_MOVIE_DETAILS = "GET_MOVIE_DETAILS";
 export let SET_SEARCH_TERM = "SET_SEARCH_TERM";
 export let SET_FILTER = "SET_FILTER";
+export let SET_SELECTED_MOVIE = "SET_SELECTED_MOVIE";
 
 export let getMovies = (searchParams, cb) => {
   console.log(searchParams);
@@ -20,29 +21,49 @@ export let getMovies = (searchParams, cb) => {
   } 
 }
 
-export let searchMovies = (searchParams, cb) => ({
-  type: SEARCH_MOVIES,
-  searchParams,
-  cb
-});
+export let searchMovies = (searchParams, cb) => {
+  var term = searchParams.term;
+  delete searchParams["term"];
+  return {
+    type: SEARCH_MOVIES,
+    term,
+    searchParams,
+    cb
+  };
+};
 
-export let getNowPlaying = (searchParams, cb) => ({
-  type: GET_NOW_PLAYING,
-  searchParams,
-  cb
-});
+export let getNowPlaying = (searchParams, cb) => {
+  var movieFilter = searchParams.movieFilter;
+  delete searchParams["movieFilter"];
+  return {
+    type: GET_NOW_PLAYING,
+    movieFilter,
+    searchParams,
+    cb
+  };
+};
 
-export let getPopular = (searchParams, cb) => ({
-  type: GET_POPULAR,
-  searchParams,
-  cb
-});
+export let getPopular = (searchParams, cb) => {
+  var movieFilter = searchParams.movieFilter;
+  delete searchParams["movieFilter"];
+  return {
+    type: GET_POPULAR,
+    movieFilter,
+    searchParams,
+    cb
+  };
+};
 
-export let getTopRated = (searchParams, cb) => ({
-  type: GET_TOP_RATED,
-  searchParams,
-  cb
-});
+export let getTopRated = (searchParams, cb) => {
+  var movieFilter = searchParams.movieFilter;
+  delete searchParams["movieFilter"];
+  return {
+    type: GET_TOP_RATED,
+    movieFilter,
+    searchParams,
+    cb
+  };
+};
 
 export let getMovieDetails = (movieId, cb) => ({
   type: GET_MOVIE_DETAILS,
@@ -58,4 +79,9 @@ export let setSearchTerm = (searchTerm) => ({
 export let setFilter = (filter) => ({
   type: SET_FILTER,
   filter
+});
+
+export let clearSelectedMovie = () => ({
+  type: SET_SELECTED_MOVIE,
+  selectedMovie: null
 });

@@ -1,53 +1,57 @@
-import axios from 'axios';
-import { setSearchTerm } from '../actions';
-let movieAPIKey = "89835e8482c6060a7265d6ebd1e42cb4";
-let apiEndpoint = "https://api.themoviedb.org/3";
-const getApiGenerator = next => (route, name, cb, params) => {
-  return axios.get(route + `&_=${Date.now()}`).then((response) => {
-    const data = response.data;
+import movieService from "./movie-service";
+
+const apiMapCallback = next => (service, serviceFn, payload, action) => {
+  return service[serviceFn](payload).then((data) => {
+    if (payload && payload.cb) {
+      payload.cb(data, undefined);
+    }
     next({
-      type: `${name}_SUCCESS`,
+      type: `${action}_SUCCESS`,
       payload: data
     });
-    if (cb) {
-      cb(data, undefined);
-    }
   }).catch((err) => {
+    if (payload && payload.cb) {
+      payload.cb(undefined, err);
+    }
     next({
-      type: `${name}_ERROR`,
+      type: `${action}_ERROR`,
       err
     });
-    if (cb) {
-      cb(undefined, err);
-    }
   });
-};
+}
 
 const dataService = store => next => action => {
   next(action);
-  const getApi = getApiGenerator(next);
+  const getApi = apiMapCallback(next);
   var queryString = Object.keys(action.searchParams || {}).map(key => key + "=" + action.searchParams[key]).join("&");
   switch (action.type) {
     case 'SEARCH_MOVIES': {
-      var currState = store.getState();
-      var searchTerm = (action.searchParams || {}).term || currState.moviesData.searchTerm;
-      next(setSearchTerm(searchTerm));
-      delete action.searchParams["term"];
-      getApi(`${apiEndpoint}/search/movie?api_key=${movieAPIKey}&query=${searchTerm}&${queryString}`, action.type, action.cb);
+      let currState = store.getState();
+      let searchTerm = action.term || currState.moviesData.searchTerm;
+      let payload = {searchTerm, queryString, cb: action.cb};
+      getApi(movieService, "searchMovies", payload, "SEARCH_MOVIES");
       break;
     }
-    case 'GET_NOW_PLAYING':
-      getApi(`${apiEndpoint}/movie/now_playing?api_key=${movieAPIKey}&language=en-US&${queryString}`, "GET_MOVIES", action.cb);
+    case 'GET_NOW_PLAYING': {
+      let payload = {filter: action.movieFilter, queryString};
+      getApi(movieService, "getNowPlaying", payload, "GET_MOVIES");
       break;
-    case 'GET_POPULAR':
-      getApi(`${apiEndpoint}/movie/popular?api_key=${movieAPIKey}&language=en-US&${queryString}`, "GET_MOVIES", action.cb);
+    }
+    case 'GET_POPULAR': {
+      let payload = {filter: action.movieFilter, queryString};
+      getApi(movieService, "getPopular", payload, "GET_MOVIES");
       break;
-    case 'GET_TOP_RATED':
-      getApi(`${apiEndpoint}/movie/top_rated?api_key=${movieAPIKey}&language=en-US&${queryString}`, "GET_MOVIES", action.cb);
+    }
+    case 'GET_TOP_RATED': {
+      let payload = {filter: action.movieFilter, queryString};
+      getApi(movieService, "getTopRated", payload, "GET_MOVIES");
       break;
-    case 'GET_MOVIE_DETAILS':
-      getApi(`${apiEndpoint}/movie/${action.movieId}?api_key=${movieAPIKey}&language=en-US`, action.type, action.cb);
+    }
+    case 'GET_MOVIE_DETAILS': {
+      let payload = {movieId: action.movieId, cb: action.cb};
+      getApi(movieService, "getMovieDetails", payload, "GET_MOVIE_DETAILS");
       break;
+    }
     default:
       break;
   }

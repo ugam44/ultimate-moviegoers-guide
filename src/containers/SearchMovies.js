@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { searchMovies, setSearchTerm, setFilter } from "../actions";
+import { searchMovies, setFilter } from "../actions";
 import SearchBar from "../components/SearchBar";
 
 let mapStateToProps = state => ({

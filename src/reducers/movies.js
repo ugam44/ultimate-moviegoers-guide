@@ -7,6 +7,8 @@ let movies = (state = defaultState, action) => {
         movies: action.payload.results,
         totalPages: action.payload.total_pages,
         totalResults: action.payload.total_results,
+        searchTerm: action.payload.searchTerm,
+        selectedMovie: null,
         moviesListIsValid: true
       };
       return {...state, ...searchResults};
@@ -17,10 +19,18 @@ let movies = (state = defaultState, action) => {
         movies: action.payload.results,
         totalPages: action.payload.total_pages,
         totalResults: action.payload.total_results,
+        searchTerm: action.payload.searchTerm == null ? state.searchTerm : action.payload.searchTerm,
+        filter: action.payload.filter == null ? state.filter : action.payload.filter,
+        selectedMovie: null,
         moviesListIsValid: true
       };
       return {...state, ...searchResults};
     }
+    case 'GET_MOVIE_DETAILS_SUCCESS': {
+      return {...state, selectedMovie: action.payload};
+    }
+    case 'SET_SELECTED_MOVIE':
+      return {...state, selectedMovie: action.selectedMovie};
     case 'SET_SEARCH_TERM':
       return {...state, searchTerm: action.searchTerm};
     case 'SET_FILTER':

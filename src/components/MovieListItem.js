@@ -2,7 +2,7 @@ import React from "react";
 import "../assets/styles/Movie.css";
 
 let imagePath = "https://image.tmdb.org/t/p/w500";
-let Movie = ({ onClick, movie }) => (
+let MovieListItem = ({ onClick, movie }) => (
   <article className="search-result row">
     <div className="col-xs-12 col-sm-12 col-md-3">
       <a href="#" title={movie.title} className="thumbnail"><img src={movie.backdrop_path ? imagePath + movie.backdrop_path : "http://www.smartstraps.com/wp-content/uploads/No-Image-Available.jpg"} alt="Movie Artwork" /></a>
@@ -23,4 +23,4 @@ let Movie = ({ onClick, movie }) => (
   </article>
 )
 
-export default Movie;
+export default MovieListItem;
