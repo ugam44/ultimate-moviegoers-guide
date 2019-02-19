@@ -2,11 +2,17 @@ import React from "react";
 import MovieListItem from "./MovieListItem";
 import "../assets/styles/MovieList.css";
 
-let MovieList = ({movies, currentPage, totalPages, totalResults, searchTerm, onPageChange, filter}) => {
+let MovieList = ({movies, currentPage, totalPages, totalResults, searchTerm, onPageChange, onSelectMovie, filter}) => {
   let handlePageChange = (event, page) => {
     // if valid page, and not same as current, and not disabled, then allow the page change
     if (page !== "..." && page !== currentPage && !event.target.classList.contains("disabled")) {
       onPageChange(page, filter);
+    }
+  }
+
+  let handleSelectMovie = (movieId) => {
+    if (movieId) {
+      onSelectMovie(movieId);
     }
   }
 
@@ -54,7 +60,7 @@ let MovieList = ({movies, currentPage, totalPages, totalResults, searchTerm, onP
       </nav>
         {movies.map((movie, index) => {
           return (
-            <MovieListItem key={index} movie={movie}/>
+            <MovieListItem key={index} movie={movie} selectMovie={handleSelectMovie}/>
           )
         })}		
       </section>

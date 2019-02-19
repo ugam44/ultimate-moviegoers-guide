@@ -2,7 +2,7 @@ import React from "react";
 import "../assets/styles/Movie.css";
 
 let imagePath = "https://image.tmdb.org/t/p/w500";
-let MovieListItem = ({ onClick, movie }) => (
+let MovieListItem = ({ selectMovie, movie }) => (
   <article className="search-result row">
     <div className="col-xs-12 col-sm-12 col-md-3">
       <a href="#" title={movie.title} className="thumbnail"><img src={movie.backdrop_path ? imagePath + movie.backdrop_path : "http://www.smartstraps.com/wp-content/uploads/No-Image-Available.jpg"} alt="Movie Artwork" /></a>
@@ -17,7 +17,7 @@ let MovieListItem = ({ onClick, movie }) => (
     <div className="col-xs-12 col-sm-12 col-md-7 excerpet">
       <h3><a href="#" title="">{movie.title}</a></h3>
       <p>{movie.overview}</p>						
-      <span className="plus" onClick={onClick}><a href="#" title="More Details"><i className="fa fa-plus"></i></a></span>
+      <span className="plus" onClick={() => selectMovie(movie.id)}><a href="#" title="More Details"><i className="fa fa-plus"></i></a></span>
     </div>
     <span className="clearfix border"></span>
   </article>
