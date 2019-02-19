@@ -1,16 +1,26 @@
 import React from "react";
+import "../assets/styles/Movie.css";
+
 let imagePath = "https://image.tmdb.org/t/p/w500";
-let Movie = ({ onClick, movie}) => (
-  <div className="card bg-light mb-3" style={{maxWidth: "20rem", maxHeight: "25rem", overflow: "auto"}}>
-    <img className="card-img-top" 
-         src={movie.backdrop_path ? imagePath + movie.backdrop_path : "http://www.smartstraps.com/wp-content/uploads/No-Image-Available.jpg"} 
-         alt="Movie artwork"/>
-    <div className="card-body">
-      <h5 className="card-title">{movie.title}</h5>
-      <h6 className="card-subtitle mb-2 text-muted">Release: {movie.release_date} | {movie.vote_average}/10</h6>
-      <p className="card-text">{movie.overview}</p>
+let Movie = ({ onClick, movie }) => (
+  <article className="search-result row">
+    <div className="col-xs-12 col-sm-12 col-md-3">
+      <a href="#" title={movie.title} className="thumbnail"><img src={movie.backdrop_path ? imagePath + movie.backdrop_path : "http://www.smartstraps.com/wp-content/uploads/No-Image-Available.jpg"} alt="Movie Artwork" /></a>
     </div>
-  </div>
+    <div className="col-xs-12 col-sm-12 col-md-2">
+      <ul className="meta-search" style={{textAlign: "left"}}>
+        <li><i className="fa fa-lg fa-calendar"></i> <span>{movie.release_date}</span></li>
+        <li><i className={'fa fa-lg fa-' + (movie.vote_average >= 7 ? 'smile-o' : movie.vote_average <= 4 ? 'frown-o' : 'meh-o')}></i> <span>{movie.vote_average}/10</span></li>
+        <li><i className="fa fa-lg fa-users"></i> <span>People</span></li>
+      </ul>
+    </div>
+    <div className="col-xs-12 col-sm-12 col-md-7 excerpet">
+      <h3><a href="#" title="">{movie.title}</a></h3>
+      <p>{movie.overview}</p>						
+      <span className="plus" onClick={onClick}><a href="#" title="More Details"><i className="fa fa-plus"></i></a></span>
+    </div>
+    <span className="clearfix border"></span>
+  </article>
 )
 
 export default Movie;

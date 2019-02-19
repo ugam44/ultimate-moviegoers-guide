@@ -1,45 +1,18 @@
 import React from 'react';
 import { connect } from "react-redux";
-import logo from '../assets/images/logo.svg';
-import { changeName } from "../actions";
 import '../assets/styles/App.css';
 import VisibleMovieList from '../containers/VisibleMovieList';
+import SearchMovies from '../containers/SearchMovies';
 
-let App = ({dispatch, name}) => {
-
-  let nameInput;
-
-  let handleNameChange = (e) => {
-    e.preventDefault();
-    var newName = nameInput.value.trim();
-    if (!newName) {
-      return;
-    }
-
-    dispatch(changeName(newName));
-    nameInput.value = "";
-  }
-
+let App = ({selectedMovie}) => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <h1>Hello, {name}!</h1>
-        <div>
-          <form onSubmit={handleNameChange}>
-            <label>
-              Change Name: {' '}
-              <input type="text" ref={node => (nameInput = node)}/>
-              <button type="submit">Submit</button>
-            </label>
-          </form>
-        </div>
-      </header>
+    <div className="container" style={{padding: "20px"}}>
+      <SearchMovies />
       <VisibleMovieList />
     </div>
   );
 }
 
-let mapStateToProps = (state) => ({ name: state.name });
+let mapStateToProps = (state) => ({ selectedMovie: state.moviesData.selectedMovie });
 
 export default connect(mapStateToProps)(App);
