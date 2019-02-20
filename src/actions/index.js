@@ -6,6 +6,9 @@ export let GET_MOVIE_DETAILS = "GET_MOVIE_DETAILS";
 export let SET_SEARCH_TERM = "SET_SEARCH_TERM";
 export let SET_FILTER = "SET_FILTER";
 export let SET_SELECTED_MOVIE = "SET_SELECTED_MOVIE";
+export let SET_VIEW = "SET_VIEW";
+export let GET_MOVIES_FOR_GENRE = "GET_MOVIES_FOR_GENRE";
+export let GET_PAGE = "GET_PAGE";
 
 export let getMovies = (searchParams, cb) => {
   console.log(searchParams);
@@ -71,6 +74,19 @@ export let getMovieDetails = (movieId, cb) => ({
   cb
 });
 
+export let getMoviesForGenre = (payload, cb) => ({
+  type: GET_MOVIES_FOR_GENRE,
+  genreId: payload.genreId,
+  genreName: payload.genreName,
+  cb
+});
+
+export let getPage = (page, cb) => ({
+  type: GET_PAGE,
+  page,
+  cb
+});
+
 export let setSearchTerm = (searchTerm) => ({
   type: SET_SEARCH_TERM,
   searchTerm
@@ -84,4 +100,9 @@ export let setFilter = (filter) => ({
 export let clearSelectedMovie = () => ({
   type: SET_SELECTED_MOVIE,
   selectedMovie: null
+});
+
+export let changeView = (view) => ({
+  type: SET_VIEW,
+  view
 });

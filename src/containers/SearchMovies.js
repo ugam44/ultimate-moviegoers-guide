@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { searchMovies, setFilter } from "../actions";
+import { searchMovies, changeView } from "../actions";
 import SearchBar from "../components/SearchBar";
 
 let mapStateToProps = state => ({
@@ -8,12 +8,10 @@ let mapStateToProps = state => ({
 
 let mapDispatchToProps = dispatch => ({
   onTextInput: (searchTerm) => {
-    dispatch(setFilter(""))
-    dispatch(searchMovies({term: searchTerm}))
+    dispatch(searchMovies({term: searchTerm}, () => dispatch(changeView("RESULTS_LIST"))))
   },
   onSearch: (searchTerm) => {
-    dispatch(setFilter(""))
-    dispatch(searchMovies({term: searchTerm}))
+    dispatch(searchMovies({term: searchTerm}, () => dispatch(changeView("RESULTS_LIST"))))
   }
 })
 

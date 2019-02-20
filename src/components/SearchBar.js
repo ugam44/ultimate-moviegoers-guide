@@ -1,9 +1,7 @@
 import React from "react";
 import MovieTypeButton from "../containers/MovieTypes";
-import { GET_NOW_PLAYING, GET_POPULAR, GET_TOP_RATED } from "../actions";
 
 let SearchBar = ({ onSearch, onTextInput, searchTerm }) => {
-
   let searchTermInput;
 
   let handleSubmit = (e) => {
@@ -31,20 +29,11 @@ let SearchBar = ({ onSearch, onTextInput, searchTerm }) => {
   }
 
   return (
-    <div className="row">
-      <form onSubmit={handleSubmit} className="col">
-        <label>
-          Search: {' '}
-          <input type="text" ref={node => (searchTermInput = node)} onInput={handleInput} defaultValue={searchTerm}/>
-          <button type="submit"><i className="fa fa-search"></i></button>
-        </label>
-      </form>
-      <div className="col">
-        <MovieTypeButton filter="NOW_PLAYING">Now Playing</MovieTypeButton>
-        <MovieTypeButton filter="POPULAR">Popular</MovieTypeButton>
-        <MovieTypeButton filter="TOP_RATED">Top Rated</MovieTypeButton>
-      </div>
-    </div>
+    <form class="form-inline mt-2 mt-md-0" onSubmit={handleSubmit}>
+      <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" 
+            ref={node => (searchTermInput = node)} onInput={handleInput} defaultValue={searchTerm}/>
+      <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
+    </form>
   );
 }
 

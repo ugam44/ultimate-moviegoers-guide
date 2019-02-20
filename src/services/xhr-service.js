@@ -14,7 +14,9 @@ export class XhrService {
     url += `&_=${Date.now()}`;
     return url;
   }
-
+  generateQueryStringParams(obj = {}) {
+    return Object.keys(obj).map(key => key + "=" + obj[key]).join("&");
+  }
   get (url) {
     return axios.get(url)
   }

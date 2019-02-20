@@ -5,7 +5,7 @@ import "../assets/styles/MovieList.css";
 let MovieList = ({movies, currentPage, totalPages, totalResults, searchTerm, onPageChange, onSelectMovie, filter}) => {
   let handlePageChange = (event, page) => {
     // if valid page, and not same as current, and not disabled, then allow the page change
-    if (page !== "..." && page !== currentPage && !event.target.classList.contains("disabled")) {
+    if (page !== "..." && !event.target.classList.contains("disabled")) {
       onPageChange(page, filter);
     }
   }

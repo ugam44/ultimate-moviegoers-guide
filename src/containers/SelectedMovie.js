@@ -1,12 +1,18 @@
 import { connect } from 'react-redux'
 import MovieDetails from "../components/MovieDetails";
-import { clearSelectedMovie } from '../actions';
+import { clearSelectedMovie, changeView, getMoviesForGenre } from '../actions';
 const mapStateToProps = (state, ownProps) => ({
   movie: state.moviesData.selectedMovie
 })
 
 const mapDispatchToProps = (dispatch) => ({
-  backToList: () => dispatch(clearSelectedMovie())
+  backToList: () => {
+    dispatch(changeView("RESULTS_LIST"));
+    // dispatch(clearSelectedMovie());
+  },
+  selectGenre: (genre) => {
+    dispatch(getMoviesForGenre({genreId: genre.id, genreName: genre.name}, () => dispatch(changeView("RESULTS_LIST"))))
+  }
 })
 
 export default connect(
