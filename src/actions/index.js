@@ -106,3 +106,8 @@ export let changeView = (view) => ({
   type: SET_VIEW,
   view
 });
+
+export let setCurrentPage = (pageNumber) => ({
+  type: "SET_CURRENT_PAGE",
+  page: pageNumber
+})

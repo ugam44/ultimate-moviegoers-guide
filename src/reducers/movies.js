@@ -42,6 +42,8 @@ let movies = (state = defaultState, action) => {
     case 'GET_MOVIE_DETAILS_SUCCESS': {
       return {...state, selectedMovie: action.payload, currentQuery: action.query};
     }
+    case 'SET_CURRENT_PAGE':
+      return {...state, currentPage: action.page}
     case 'SET_SELECTED_MOVIE':
       return {...state, selectedMovie: action.selectedMovie};
     case 'SET_SEARCH_TERM':

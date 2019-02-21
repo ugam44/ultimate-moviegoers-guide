@@ -1,12 +1,14 @@
 import React from "react";
+import { withRouter } from "react-router-dom";
 
-let SearchBar = ({ onSearch, onTextInput, searchTerm }) => {
+let SearchBar = ({ onSearch, onTextInput, searchTerm, history }) => {
   let searchTermInput;
 
   let handleSubmit = (e) => {
     e.preventDefault();
     var searchTerm = searchTermInput.value.trim();
     if (searchTerm) {
+      history.push(`/search/movies?term=${searchTerm}`);
       onSearch(searchTerm);
     }
   }
@@ -36,4 +38,4 @@ let SearchBar = ({ onSearch, onTextInput, searchTerm }) => {
   );
 }
 
-export default SearchBar;
+export default withRouter(SearchBar);

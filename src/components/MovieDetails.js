@@ -1,9 +1,8 @@
 import React from "react";
 
-let MovieDetails = ({ movie, backToList, selectGenre }) => {
+let MovieDetails = ({ movie, selectGenre }) => {
   return (
     <div>
-      <button className="btn btn-danger" onClick={backToList}>Back</button>
       <pre>{JSON.stringify(movie)}</pre>
       <ul>
         {movie && movie.genres.map((genre, index) => (

@@ -2,6 +2,7 @@ import React from "react";
 import "../assets/styles/Movie.css";
 import { connect } from "react-redux";
 import { getMovieDetails, changeView } from "../actions"
+import { Link } from "react-router-dom";
 
 let imagePath = "https://image.tmdb.org/t/p/w500";
 let MovieListItem = ({ selectMovie, movie }) => (
@@ -19,7 +20,7 @@ let MovieListItem = ({ selectMovie, movie }) => (
     <div className="col-xs-12 col-sm-12 col-md-7 excerpet">
       <h3><a href="#" title="">{movie.title}</a></h3>
       <p>{movie.overview}</p>						
-      <span className="plus" onClick={() => selectMovie(movie.id)}><a href="#" title="More Details"><i className="fa fa-plus"></i></a></span>
+      <span className="plus"><Link to={`/movies/${movie.id}/details`}><i className="fa fa-plus"></i></Link></span>
     </div>
     <span className="clearfix border"></span>
   </article>

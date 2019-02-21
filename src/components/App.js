@@ -1,20 +1,25 @@
 import React from 'react';
 import { connect } from "react-redux";
+import { Route } from "react-router-dom";
 import '../assets/styles/App.css';
 import VisibleMovieList from '../containers/VisibleMovieList';
 import SelectedMovie from '../containers/SelectedMovie';
 import Nav from './Nav';
 import Footer from './Footer';
 import Home from '../containers/Home';
+import Movies from "../containers/Movies";
 
 let App = ({selectedView}) => {
   return (
     <div>
       <Nav />
       <div className="container" style={{padding: "60px 15px 0"}}>
-        {selectedView === "HOME" && <Home />}
-        {selectedView === "RESULTS_LIST" && <VisibleMovieList />}
-        {selectedView === "MOVIE_DETAILS" && <SelectedMovie />}
+        <Route path="/movies" component={Movies} />
+        <Route path="/home" component={Home} />
+        <Route path="/search/movies" render={({location}) => <h3>Search term: {location.search.match(/term=[^&]*/)[0].split("=")[1]}</h3>} />
+        {/* {selectedView === "HOME" && <Home />} */}
+        {/* {selectedView === "RESULTS_LIST" && <VisibleMovieList />} */}
+        {/* {selectedView === "MOVIE_DETAILS" && <SelectedMovie />} */}
       </div>
       <Footer />
     </div>
