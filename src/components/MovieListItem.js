@@ -1,5 +1,7 @@
 import React from "react";
 import "../assets/styles/Movie.css";
+import { connect } from "react-redux";
+import { getMovieDetails, changeView } from "../actions"
 
 let imagePath = "https://image.tmdb.org/t/p/w500";
 let MovieListItem = ({ selectMovie, movie }) => (
@@ -23,4 +25,10 @@ let MovieListItem = ({ selectMovie, movie }) => (
   </article>
 )
 
-export default MovieListItem;
+let mapDispatchToProps = (dispatch) => ({
+  selectMovie: (movieId) => {
+    dispatch(getMovieDetails(movieId, () => dispatch(changeView("MOVIE_DETAILS"))))
+  }
+})
+
+export default connect(null, mapDispatchToProps)(MovieListItem);

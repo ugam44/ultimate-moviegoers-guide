@@ -1,5 +1,4 @@
 import React from "react";
-import MovieTypeButton from "../containers/MovieTypes";
 
 let SearchBar = ({ onSearch, onTextInput, searchTerm }) => {
   let searchTermInput;

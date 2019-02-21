@@ -11,12 +11,12 @@ export let GET_MOVIES_FOR_GENRE = "GET_MOVIES_FOR_GENRE";
 export let GET_PAGE = "GET_PAGE";
 
 export let getMovies = (searchParams, cb) => {
-  console.log(searchParams);
   switch(searchParams.movieFilter) {
     case "TOP_RATED":
       return getTopRated(searchParams, cb);
     case "NOW_PLAYING":
       return getNowPlaying(searchParams, cb);
+    case "HOME":
     case "POPULAR":
       return getPopular(searchParams, cb);
     default:

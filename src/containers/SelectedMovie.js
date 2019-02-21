@@ -1,6 +1,7 @@
 import { connect } from 'react-redux'
 import MovieDetails from "../components/MovieDetails";
-import { clearSelectedMovie, changeView, getMoviesForGenre } from '../actions';
+import { changeView, getMoviesForGenre } from '../actions';
+
 const mapStateToProps = (state, ownProps) => ({
   movie: state.moviesData.selectedMovie
 })
@@ -8,7 +9,6 @@ const mapStateToProps = (state, ownProps) => ({
 const mapDispatchToProps = (dispatch) => ({
   backToList: () => {
     dispatch(changeView("RESULTS_LIST"));
-    // dispatch(clearSelectedMovie());
   },
   selectGenre: (genre) => {
     dispatch(getMoviesForGenre({genreId: genre.id, genreName: genre.name}, () => dispatch(changeView("RESULTS_LIST"))))
