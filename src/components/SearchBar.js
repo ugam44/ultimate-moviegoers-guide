@@ -3,9 +3,13 @@ import { withRouter } from "react-router-dom";
 
 let SearchBar = ({ onSearch, onTextInput, searchTerm, history }) => {
   let searchTermInput;
+  let inputDebounceTimeout;
 
   let handleSubmit = (e) => {
     e.preventDefault();
+    if (inputDebounceTimeout) {
+      clearTimeout(inputDebounceTimeout);
+    }
     var searchTerm = searchTermInput.value.trim();
     if (searchTerm) {
       history.push(`/search/movies?term=${searchTerm}`);
@@ -13,20 +17,19 @@ let SearchBar = ({ onSearch, onTextInput, searchTerm, history }) => {
     }
   }
 
-  let inputDebounceTimeout;
   let handleInput = (e) => {
-    // if timeout hasn't triggered yet, reset timer
-    if (inputDebounceTimeout) {
-      clearTimeout(inputDebounceTimeout);
-    }
+    // // if timeout hasn't triggered yet, reset timer
+    // if (inputDebounceTimeout) {
+    //   clearTimeout(inputDebounceTimeout);
+    // }
 
-    var searchTerm = searchTermInput.value.trim();
-    if (searchTerm) {
-      // debounce search to reduce network overhead so API isn't called for every rapid keystroke
-      inputDebounceTimeout = setTimeout(() => {
-        onTextInput(searchTerm);
-      }, 500);
-    }
+    // var searchTerm = searchTermInput.value.trim();
+    // if (searchTerm) {
+    //   // debounce search to reduce network overhead so API isn't called for every rapid keystroke
+    //   inputDebounceTimeout = setTimeout(() => {
+    //     onTextInput(searchTerm);
+    //   }, 500);
+    // }
   }
 
   return (

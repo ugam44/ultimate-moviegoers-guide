@@ -1,48 +1,16 @@
-import React, { Component } from "react";
 import { connect } from "react-redux";
-import MovieList from "../components/MovieList";
 import { setCurrentPage, getMovies } from "../actions";
-
-class NowPlaying extends Component {
-  constructor() {
-    super();
-  }
-  
-  compareObjsProps(obj1, obj2) {
-    var o1Keys = Object.keys(obj1);
-    var o2Keys = Object.keys(obj2);
-    
-    return o1Keys.length === o2Keys.length && o1Keys.every(key => o2Keys.includes(key) && obj1[key] === obj2[key]);
-  }
-  
-  componentDidMount() {
-    this.searchParams = {...this.props.searchParams};
-    this.props.executeSearch(this.searchParams);
-  }
-
-  componentDidUpdate() {
-    if (this.searchParams && !this.compareObjsProps(this.searchParams, this.props.searchParams)) {
-      this.props.executeSearch(this.props.searchParams);
-      this.searchParams = {...this.props.searchParams};
-    }
-  }
-
-  render() {
-    return (
-      <div>
-        <h1>Now Playing</h1>
-        <hr/>
-        <MovieList {...this.props.moviesData} onPageChange={this.props.onPageChange}/>
-      </div>
-    )
-  }
-}
+import MovieList from "../components/MovieList";
 
 let mapStateToProps = (state) => ({
   moviesData: {...state.moviesData},
+  movies: state.moviesData.movies,
+  currentPage: state.moviesData.currentPage,
+  totalPages: state.moviesData.totalPages,
   searchParams: {
     page: state.moviesData.currentPage
-  }
+  },
+  title: "Now Playing"
 });
 
 let mapDispatchToProps = (dispatch) => ({
@@ -53,4 +21,4 @@ let mapDispatchToProps = (dispatch) => ({
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(NowPlaying);
+)(MovieList);

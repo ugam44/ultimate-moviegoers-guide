@@ -1,7 +1,6 @@
 import React from "react";
 import SearchMovies from "../containers/SearchMovies";
 import { connect } from "react-redux";
-import { getMovies, changeView } from "../actions";
 import { Link } from "react-router-dom";
 
 let Nav = ({ filter }) => {

@@ -5,10 +5,10 @@ import { getMovieDetails, changeView } from "../actions"
 import { Link } from "react-router-dom";
 
 let imagePath = "https://image.tmdb.org/t/p/w500";
-let MovieListItem = ({ selectMovie, movie }) => (
+let MovieListItem = ({ movie }) => (
   <article className="search-result row">
     <div className="col-xs-12 col-sm-12 col-md-3">
-      <a href="#" title={movie.title} className="thumbnail"><img src={movie.backdrop_path ? imagePath + movie.backdrop_path : "http://www.smartstraps.com/wp-content/uploads/No-Image-Available.jpg"} alt="Movie Artwork" /></a>
+      <Link title={movie.title} className="thumbnail" to={`/movies/${movie.id}/details`}><img src={movie.backdrop_path ? imagePath + movie.backdrop_path : "http://www.smartstraps.com/wp-content/uploads/No-Image-Available.jpg"} alt="Movie Artwork" /></Link>
     </div>
     <div className="col-xs-12 col-sm-12 col-md-2">
       <ul className="meta-search" style={{textAlign: "left"}}>
@@ -18,7 +18,7 @@ let MovieListItem = ({ selectMovie, movie }) => (
       </ul>
     </div>
     <div className="col-xs-12 col-sm-12 col-md-7 excerpet">
-      <h3><a href="#" title="">{movie.title}</a></h3>
+      <h3><Link to={`/movies/${movie.id}/details`}>{movie.title}</Link></h3>
       <p>{movie.overview}</p>						
       <span className="plus"><Link to={`/movies/${movie.id}/details`}><i className="fa fa-plus"></i></Link></span>
     </div>
