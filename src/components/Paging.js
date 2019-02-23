@@ -9,19 +9,11 @@ let Paging = ({ onPageChange, currentPage, totalPages }) => {
   }
 
   let getPaging = () => {
-    var startPage = Math.max(1, currentPage - 2);
+    var startPage = Math.max(1, currentPage - 1);
     var endPage = Math.min(totalPages, Math.max(startPage + 2, currentPage + 1));
     var pages = [];
-    if (startPage > 1) {
-      pages.push(1);
-      pages.push("...");
-    }
     for (var i = startPage; i <= endPage; i++) {
       pages.push(i);
-    }
-    if (totalPages > endPage) {
-      pages.push("...");
-      pages.push(totalPages);
     }
     return (
       pages.map((page, index) => (
@@ -34,12 +26,18 @@ let Paging = ({ onPageChange, currentPage, totalPages }) => {
   return (
     <nav>
       <ul className="pagination">
+        <li className={"page-item " + (currentPage === 1 ? "disabled" : "")} onClick={(e) => handlePageChange(e, 1)}>
+          <a className="page-link" href="#">First</a>
+        </li>
         <li className={"page-item " + (currentPage === 1 ? "disabled" : "")} onClick={(e) => handlePageChange(e, --currentPage)}>
-          <a className="page-link" href="#">Previous</a>
+          <a className="page-link" href="#">&lt;&lt;</a>
         </li>
         {getPaging()}
         <li className={"page-item " + (currentPage === totalPages ? "disabled" : "")} onClick={(e) => handlePageChange(e, ++currentPage)}>
-          <a className="page-link" href="#">Next</a>
+          <a className="page-link" href="#">&gt;&gt;</a>
+        </li>
+        <li className={"page-item " + (currentPage === totalPages ? "disabled" : "")} onClick={(e) => handlePageChange(e, totalPages)}>
+          <a className="page-link" href="#">Last</a>
         </li>
       </ul>
     </nav>

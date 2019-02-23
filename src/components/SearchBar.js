@@ -13,7 +13,7 @@ let SearchBar = ({ onSearch, onTextInput, searchTerm, history }) => {
     var searchTerm = searchTermInput.value.trim();
     if (searchTerm) {
       history.push(`/search/movies?term=${searchTerm}`);
-      onSearch(searchTerm);
+      // onSearch(searchTerm);
     }
   }
 

@@ -10,10 +10,8 @@ const apiMapCallback = next => (service, serviceFn, payload, action) => {
       payload: data,
       // pass query data so we can save to app state to re execute if necessary
       query: {
-        service,
-        serviceFn,
-        payload,
-        action
+        params: payload.params,
+        initiator: payload.initiator
       }
     });
   }).catch((err) => {
@@ -25,58 +23,76 @@ const apiMapCallback = next => (service, serviceFn, payload, action) => {
       err,
       // pass query data so we can save to app to re execute if necessary
       query: {
-        service,
-        serviceFn,
-        payload,
-        action
+        params: payload.params,
+        initiator: payload.initiator
       }
     });
   });
+}
+
+function compareObjsProps(obj1 = {}, obj2 = {}) {
+  var o1Keys = Object.keys(obj1);
+  var o2Keys = Object.keys(obj2);
+  
+  return o1Keys.length === o2Keys.length && o1Keys.every(key => o2Keys.includes(key) && obj1[key] === obj2[key]);
+}
+
+function shouldFetchMovies(state, initiator, params) {
+  var currResults = state.moviesData.searchResults[initiator]
+  if (!currResults || currResults.isInvalid || !compareObjsProps(params, currResults.searchParams)) {
+    // fetch movies if there are no results for that initiator, if results are invalid, or if params are different
+    return true;
+  }
+  return false;
 }
 
 const dataService = store => next => action => {
   next(action);
   const getApi = apiMapCallback(next);
   var params = action.searchParams || {};
+  let currState = store.getState();
+  var initiator = action.initiator;
   switch (action.type) {
     case 'SEARCH_MOVIES': {
       let searchTerm = action.term;
-      let payload = {searchTerm, params, cb: action.cb};
-      getApi(movieService, "searchMovies", payload, action.type);
-      break;
-    }
-    case 'GET_PAGE': {
-      let currState = store.getState();
-      // get latest query information
-      let {service, serviceFn, payload, action: actionType} = currState.moviesData.currentQuery;
-      // update page
-      payload.params.page = action.page;
-      // re execute last query with updated page (ensures all other parameters are the same, generically)
-      getApi(service, serviceFn, payload, actionType);
+      let payload = {searchTerm, params, initiator, cb: action.cb};
+      if (shouldFetchMovies(currState, initiator, params)) {
+        getApi(movieService, "searchMovies", payload, action.type);
+      }
+      else {
+        next({
+          type: `${action}_SUCCESS`,
+          payload: currState.moviesData.searchResults[initiator],
+          query: {
+            params,
+            initiator
+          }
+        })
+      }
       break;
     }
     case 'GET_NOW_PLAYING': {
-      let payload = {filter: action.movieFilter, params, cb: action.cb};
+      let payload = {params, initiator, cb: action.cb};
       getApi(movieService, "getNowPlaying", payload, "GET_MOVIES");
       break;
     }
     case 'GET_POPULAR': {
-      let payload = {filter: action.movieFilter, params, cb: action.cb};
+      let payload = {filter: action.movieFilter, params, initiator, cb: action.cb};
       getApi(movieService, "getPopular", payload, "GET_MOVIES");
       break;
     }
     case 'GET_TOP_RATED': {
-      let payload = {filter: action.movieFilter, params, cb: action.cb};
+      let payload = {filter: action.movieFilter, params, initiator, cb: action.cb};
       getApi(movieService, "getTopRated", payload, "GET_MOVIES");
       break;
     }
     case 'GET_MOVIE_DETAILS': {
-      let payload = {movieId: action.movieId, cb: action.cb};
+      let payload = {movieId: action.movieId, initiator, cb: action.cb};
       getApi(movieService, "getMovieDetails", payload, action.type);
       break;
     }
     case 'GET_MOVIES_FOR_GENRE': {
-      let payload = {genreId: action.genreId, genreName: action.genreName, params, cb: action.cb};
+      let payload = {genreId: action.genreId, genreName: action.genreName, params, initiator, cb: action.cb};
       getApi(movieService, "getMoviesForGenre", payload, action.type);
       break;
     }

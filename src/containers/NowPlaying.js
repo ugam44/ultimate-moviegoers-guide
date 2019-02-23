@@ -1,21 +1,23 @@
 import { connect } from "react-redux";
-import { setCurrentPage, getMovies } from "../actions";
+import { setCurrentPage, getNowPlaying } from "../actions";
 import MovieList from "../components/MovieList";
 
-let mapStateToProps = (state) => ({
-  moviesData: {...state.moviesData},
-  movies: state.moviesData.movies,
-  currentPage: state.moviesData.currentPage,
-  totalPages: state.moviesData.totalPages,
-  searchParams: {
-    page: state.moviesData.currentPage
+let mapStateToProps = (state, ownProps) => ({
+  loading: state.moviesData.loading,
+  data: state.moviesData.searchResults[ownProps.match.path] || {
+    movies: [],
+    searchParams: {page: 1},
+    totalResults: 0,
+    totalPages: 0,
+    currentPage: 1,
+    isInvalid: true
   },
   title: "Now Playing"
 });
 
-let mapDispatchToProps = (dispatch) => ({
-  executeSearch: (searchParams) => dispatch(getMovies({movieFilter: "NOW_PLAYING", ...searchParams})),
-  onPageChange: (pageNumber) => dispatch(setCurrentPage(pageNumber))
+let mapDispatchToProps = (dispatch, ownProps) => ({
+  executeSearch: (searchParams) => dispatch(getNowPlaying(ownProps.match.path, searchParams)),
+  onPageChange: (pageNumber) => dispatch(setCurrentPage(ownProps.match.path, pageNumber))
 });
 
 export default connect(

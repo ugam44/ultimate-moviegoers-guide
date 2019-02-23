@@ -1,10 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
 import MovieList from "../components/MovieList";
-import { getPage } from "../actions";
+import { getMovies, setCurrentPage } from "../actions";
 
 let Home = (props) => {
-  console.log("I'm home")
   return (
     <div>
       <h1>I am home!</h1>
@@ -13,15 +12,22 @@ let Home = (props) => {
   )
 }
 
-let mapStateToProps = state => {
-  return {...state.moviesData};
-}
+let mapStateToProps = (state) => ({
+  moviesData: {...state.moviesData},
+  movies: state.moviesData.movies,
+  currentPage: state.moviesData.currentPage,
+  totalPages: state.moviesData.totalPages,
+  searchParams: {
+    page: state.moviesData.currentPage
+  }
+});
 
-let mapDispatchToProps = dispatch => ({
-  onPageChange: (pageNumber) => dispatch(getPage(pageNumber))
-})
+let mapDispatchToProps = (dispatch) => ({
+  executeSearch: (searchParams) => dispatch(getMovies({movieFilter: "NOW_PLAYING", ...searchParams})),
+  onPageChange: (pageNumber) => dispatch(setCurrentPage(pageNumber))
+});
 
 export default connect(
-  mapStateToProps, 
+  mapStateToProps,
   mapDispatchToProps
 )(Home);

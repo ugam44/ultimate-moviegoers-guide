@@ -22,5 +22,3 @@ render(
   </Provider>,
   document.getElementById("root")
 );
-
-store.dispatch(getMovies({movieFilter: "HOME"}));

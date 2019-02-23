@@ -18,8 +18,6 @@ let movieService = {
     var url = xhr.generateAPIUrl(`/movie/now_playing?${queryString}`);
     return xhr.get(url).then((response) => {
       var data = response.data;
-      data.searchTerm = "Now Playing";
-      data.filter = payload.filter;
       return data;
     }).catch((err) => {
       throw new Error(err);

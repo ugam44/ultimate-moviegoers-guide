@@ -15,7 +15,7 @@ export let getMovies = (searchParams, cb) => {
     case "TOP_RATED":
       return getTopRated(searchParams, cb);
     case "NOW_PLAYING":
-      return getNowPlaying(searchParams, cb);
+      return getNowPlaying("/movies/now-playing", searchParams, cb);
     case "HOME":
     case "POPULAR":
       return getPopular(searchParams, cb);
@@ -35,12 +35,10 @@ export let searchMovies = (searchParams, cb) => {
   };
 };
 
-export let getNowPlaying = (searchParams, cb) => {
-  var movieFilter = searchParams.movieFilter;
-  delete searchParams["movieFilter"];
+export let getNowPlaying = (initiator, searchParams, cb) => {
   return {
     type: GET_NOW_PLAYING,
-    movieFilter,
+    initiator,
     searchParams,
     cb
   };
@@ -81,12 +79,6 @@ export let getMoviesForGenre = (payload, cb) => ({
   cb
 });
 
-export let getPage = (page, cb) => ({
-  type: GET_PAGE,
-  page,
-  cb
-});
-
 export let setSearchTerm = (searchTerm) => ({
   type: SET_SEARCH_TERM,
   searchTerm
@@ -107,7 +99,8 @@ export let changeView = (view) => ({
   view
 });
 
-export let setCurrentPage = (pageNumber) => ({
+export let setCurrentPage = (initiator, pageNumber) => ({
   type: "SET_CURRENT_PAGE",
-  page: pageNumber
+  page: pageNumber,
+  initiator
 })

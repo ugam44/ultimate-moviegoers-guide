@@ -8,7 +8,7 @@ let Nav = ({ filter }) => {
     {filter: "POPULAR", label: "Popular", path: "/movies/popular"},
     {filter: "NOW_PLAYING", label: "Now Playing", path: "/movies/now-playing"},
     {filter: "TOP_RATED", label: "Top Rated", path: "/movies/top-rated"},
-  ]
+  ];
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
       <Link className="navbar-brand" to="/home">Ultimate Moviegoers</Link>
