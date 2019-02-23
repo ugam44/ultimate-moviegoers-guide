@@ -21,7 +21,6 @@ class MovieList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    console.log("here");
     if (!this.compareObjsProps(prevProps.data.searchParams, this.props.data.searchParams)) {
       this.props.executeSearch(this.props.data.searchParams);
     }
@@ -43,8 +42,9 @@ class MovieList extends Component {
             {movies.map((movie, index) => {
               return (
                 <MovieListItem key={index} movie={movie}/>
-              )
+                )
             })}		
+            <Paging onPageChange={onPageChange} currentPage={currentPage} totalPages={totalPages} />
           </section>
         )}
         {loading && (

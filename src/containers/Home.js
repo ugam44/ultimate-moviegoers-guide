@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import MovieList from "../components/MovieList";
-import { getMovies, setCurrentPage } from "../actions";
+import { getMovies, setSearchParams } from "../actions";
 
 let Home = (props) => {
   return (
@@ -22,9 +22,9 @@ let mapStateToProps = (state) => ({
   }
 });
 
-let mapDispatchToProps = (dispatch) => ({
+let mapDispatchToProps = (dispatch, ownProps) => ({
   executeSearch: (searchParams) => dispatch(getMovies({movieFilter: "NOW_PLAYING", ...searchParams})),
-  onPageChange: (pageNumber) => dispatch(setCurrentPage(pageNumber))
+  onPageChange: (pageNumber) => dispatch(setSearchParams(ownProps.match.path, {page: pageNumber}))
 });
 
 export default connect(

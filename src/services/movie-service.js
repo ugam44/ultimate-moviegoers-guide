@@ -28,8 +28,6 @@ let movieService = {
     var url = xhr.generateAPIUrl(`/movie/popular?${queryString}`);
     return xhr.get(url).then((response) => {
       var data = response.data;
-      data.searchTerm = "Popular";
-      data.filter = payload.filter;
       return data;
     }).catch((err) => {
       throw new Error(err);
@@ -40,8 +38,6 @@ let movieService = {
     var url = xhr.generateAPIUrl(`/movie/top_rated?${queryString}`);
     return xhr.get(url).then((response) => {
       var data = response.data;
-      data.searchTerm = "Top Rated";
-      data.filter = payload.filter;
       return data;
     }).catch((err) => {
       throw new Error(err);
@@ -52,7 +48,6 @@ let movieService = {
     var url = xhr.generateAPIUrl(`/genre/${payload.genreId}/movies?${queryString}`);
     return xhr.get(url).then((response) => {
       var data = response.data;
-      data.searchTerm = payload.genreName;
       return data;
     }).catch((err) => {
       throw new Error(err);

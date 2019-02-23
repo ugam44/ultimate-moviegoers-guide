@@ -44,38 +44,36 @@ export let getNowPlaying = (initiator, searchParams, cb) => {
   };
 };
 
-export let getPopular = (searchParams, cb) => {
-  var movieFilter = searchParams.movieFilter;
-  delete searchParams["movieFilter"];
+export let getPopular = (initiator, searchParams, cb) => {
   return {
     type: GET_POPULAR,
-    movieFilter,
+    initiator,
     searchParams,
     cb
   };
 };
 
-export let getTopRated = (searchParams, cb) => {
-  var movieFilter = searchParams.movieFilter;
-  delete searchParams["movieFilter"];
+export let getTopRated = (initiator, searchParams, cb) => {
   return {
     type: GET_TOP_RATED,
-    movieFilter,
+    initiator,
     searchParams,
     cb
   };
 };
 
-export let getMovieDetails = (movieId, cb) => ({
+export let getMovieDetails = (initiator, movieId, cb) => ({
   type: GET_MOVIE_DETAILS,
+  initiator,
   movieId,
   cb
 });
 
-export let getMoviesForGenre = (payload, cb) => ({
+export let getMoviesForGenre = (initiator, genreId, searchParams, cb) => ({
   type: GET_MOVIES_FOR_GENRE,
-  genreId: payload.genreId,
-  genreName: payload.genreName,
+  initiator,
+  genreId,
+  searchParams,
   cb
 });
 
@@ -99,8 +97,8 @@ export let changeView = (view) => ({
   view
 });
 
-export let setCurrentPage = (initiator, pageNumber) => ({
-  type: "SET_CURRENT_PAGE",
-  page: pageNumber,
-  initiator
-})
+export let setSearchParams = (initiator, params) => ({
+  type: "SET_SEARCH_PARAMS",
+  initiator,
+  params
+});

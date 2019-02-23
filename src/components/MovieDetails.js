@@ -1,14 +1,52 @@
 import React from "react";
+import { Link } from "react-router-dom";
+import "../assets/styles/MovieDetails.css";
 
-let MovieDetails = ({ movie, selectGenre }) => {
+let imagePath = "https://image.tmdb.org/t/p/w500";
+let MovieDetails = ({ movie }) => {
+  var similarMovies = movie && movie.similar.results.filter(similarMovie => similarMovie.backdrop_path);
+  function getImagePath(path) {
+    return path ? imagePath + path : "http://www.smartstraps.com/wp-content/uploads/No-Image-Available.jpg";
+  }
   return (
     <div>
-      <pre>{JSON.stringify(movie)}</pre>
-      <ul>
-        {movie && movie.genres.map((genre, index) => (
-          <li key={index} onClick={() => selectGenre(genre)}>{genre.name}</li>
-        ))}
-      </ul>
+      {movie && (
+        <div>
+          <pre>{JSON.stringify(movie)}</pre>
+          <h3>Genres</h3>
+            {movie.genres.map((genre, index) => (
+              <Link className="badge badge-secondary" key={index} to={`/genres/${genre.id}/movies`}>{genre.name}</Link>
+            ))}
+          <h3>Related</h3>
+          <div id="relatedMoviesCarousel" className="carousel slide" data-ride="carousel" style={{width: "400px"}}>
+            <ol className="carousel-indicators" style={{marginBottom: "0"}}>
+              {similarMovies.map((_, index) => (
+                <li key={index} data-target="#relatedMoviesCarousel" data-slide-to={index}></li>
+              ))}
+            </ol>
+            <div className="carousel-inner">
+              {similarMovies.map((similarMovie, index) => (
+                <div className={"carousel-item " + (index === 0 ? 'active' : '')} key={index}>
+                  <img src={getImagePath(similarMovie.backdrop_path)} className="d-block w-100" alt="..." />
+                  <div className="carousel-caption d-none d-md-block carousel-text-container">
+                    <h5><Link to={`/movies/${similarMovie.id}/details`} style={{color: "white", textDecoration: "underline"}}>{similarMovie.title}</Link></h5>
+                    <p style={{whiteSpace: "nowrap", overflowX: "hidden", textOverflow: "ellipsis"}}>{similarMovie.overview}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+            <a className="carousel-control-prev" href="#relatedMoviesCarousel" role="button" data-slide="prev">
+              <span className="carousel-control-prev-icon" aria-hidden="true"></span>
+              <span className="sr-only">Previous</span>
+            </a>
+            <a className="carousel-control-next" href="#relatedMoviesCarousel" role="button" data-slide="next">
+              <span className="carousel-control-next-icon" aria-hidden="true"></span>
+              <span className="sr-only">Next</span>
+            </a>
+          </div>
+        </div>
+      )}
+      
     </div>
   )
 }

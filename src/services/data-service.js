@@ -38,7 +38,7 @@ function compareObjsProps(obj1 = {}, obj2 = {}) {
 }
 
 function shouldFetchMovies(state, initiator, params) {
-  var currResults = state.moviesData.searchResults[initiator]
+  var currResults = state.moviesData.searchResults[initiator];
   if (!currResults || currResults.isInvalid || !compareObjsProps(params, currResults.searchParams)) {
     // fetch movies if there are no results for that initiator, if results are invalid, or if params are different
     return true;
@@ -64,7 +64,7 @@ const dataService = store => next => action => {
           type: `${action}_SUCCESS`,
           payload: currState.moviesData.searchResults[initiator],
           query: {
-            params,
+            params: currState.moviesData.searchResults[initiator].searchParams,
             initiator
           }
         })
@@ -73,22 +73,71 @@ const dataService = store => next => action => {
     }
     case 'GET_NOW_PLAYING': {
       let payload = {params, initiator, cb: action.cb};
-      getApi(movieService, "getNowPlaying", payload, "GET_MOVIES");
+      if (shouldFetchMovies(currState, initiator, params)) {
+        getApi(movieService, "getNowPlaying", payload, "GET_MOVIES");
+      }
+      else {
+        next({
+          type: `${action}_SUCCESS`,
+          payload: currState.moviesData.searchResults[initiator],
+          query: {
+            params: currState.moviesData.searchResults[initiator].searchParams,
+            initiator
+          }
+        })
+      }
       break;
     }
     case 'GET_POPULAR': {
-      let payload = {filter: action.movieFilter, params, initiator, cb: action.cb};
-      getApi(movieService, "getPopular", payload, "GET_MOVIES");
+      let payload = {params, initiator, cb: action.cb};
+      if (shouldFetchMovies(currState, initiator, params)) {
+        getApi(movieService, "getPopular", payload, "GET_MOVIES");
+      }
+      else {
+        next({
+          type: `${action}_SUCCESS`,
+          payload: currState.moviesData.searchResults[initiator],
+          query: {
+            params: currState.moviesData.searchResults[initiator].searchParams,
+            initiator
+          }
+        })
+      }
       break;
     }
     case 'GET_TOP_RATED': {
-      let payload = {filter: action.movieFilter, params, initiator, cb: action.cb};
-      getApi(movieService, "getTopRated", payload, "GET_MOVIES");
+      let payload = {params, initiator, cb: action.cb};
+      if (shouldFetchMovies(currState, initiator, params)) {
+        getApi(movieService, "getTopRated", payload, "GET_MOVIES");
+      }
+      else {
+        next({
+          type: `${action}_SUCCESS`,
+          payload: currState.moviesData.searchResults[initiator],
+          query: {
+            params: currState.moviesData.searchResults[initiator].searchParams,
+            initiator
+          }
+        })
+      }
       break;
     }
     case 'GET_MOVIE_DETAILS': {
       let payload = {movieId: action.movieId, initiator, cb: action.cb};
-      getApi(movieService, "getMovieDetails", payload, action.type);
+      console.log(initiator);
+      if (shouldFetchMovies(currState, initiator, params)) {
+        getApi(movieService, "getMovieDetails", payload, action.type);
+      }
+      else {
+        next({
+          type: `${action}_SUCCESS`,
+          payload: currState.moviesData.searchResults[initiator],
+          query: {
+            params: currState.moviesData.searchResults[initiator].searchParams,
+            initiator
+          }
+        })
+      }
       break;
     }
     case 'GET_MOVIES_FOR_GENRE': {

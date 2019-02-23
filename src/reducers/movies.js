@@ -2,20 +2,9 @@
 let defaultState = {filter: "", searchResults: {}, loading: false};
 let movies = (state = defaultState, action) => {
   switch (action.type) {
-    case 'SEARCH_MOVIES_SUCCESS': {
-      let searchResults = {
-        currentPage: action.payload.page,
-        movies: action.payload.results,
-        totalPages: action.payload.total_pages,
-        totalResults: action.payload.total_results,
-        searchParams: action.query.params,
-        initiator: action.query.initiator,
-        isInvalid: false
-      };
-      let searches = Object.assign({}, state.searchResults, searchResults);
-      return {...state, searchResults: searches};
-    }
-    case 'GET_MOVIES_SUCCESS': {
+    case 'SEARCH_MOVIES_SUCCESS':
+    case 'GET_MOVIES_SUCCESS':
+    case 'GET_MOVIES_FOR_GENRE_SUCCESS': {
       let searchResults = {
         currentPage: action.payload.page,
         movies: action.payload.results,
@@ -26,27 +15,28 @@ let movies = (state = defaultState, action) => {
         isInvalid: false
       };
       let searches = Object.assign({}, state.searchResults, {[action.query.initiator]: searchResults});
+      return {...state, searchResults: searches};
+    }
+    case 'GET_MOVIE_DETAILS_SUCCESS': {
+      let searchResults = {
+        movie: action.payload,
+        searchParams: action.query.params,
+        initiator: action.query.initiator,
+        isInvalid: false
+      };
+      let searches = Object.assign({}, state.searchResults, {[action.query.initiator]: searchResults});
       console.log(searches);
       return {...state, searchResults: searches};
     }
-    case 'GET_MOVIES_FOR_GENRE_SUCCESS': {
-      let searchResults = {
-        currentPage: action.payload.page,
-        movies: action.payload.results,
-        totalPages: action.payload.total_pages,
-        totalResults: action.payload.total_results,
-        searchTerm: action.payload.searchTerm == null ? state.searchTerm : action.payload.searchTerm,
-        filter: action.payload.filter == null ? state.filter : action.payload.filter,
-        selectedMovie: null,
-        moviesListIsValid: true
-      };
-      return {...state, ...searchResults, currentQuery: action.query};
-    }
-    case 'GET_MOVIE_DETAILS_SUCCESS': {
-      return {...state, selectedMovie: action.payload, currentQuery: action.query};
-    }
     case 'SET_CURRENT_PAGE':{
-      var newSearchResult = Object.assign({}, state.searchResults[action.initiator], {searchResults: Object.assign({}, state.searchResults[action.initiator].searchResults, {page: action.page})});
+      let initiator = state.searchResults[action.initiator];
+      let newSearchResult = Object.assign({}, initiator, {isInvalid: true, searchParams: Object.assign({}, initiator.searchParams, {page: action.page})});
+      let searches = Object.assign({}, state.searchResults, {[action.initiator]: newSearchResult});
+      return {...state, searchResults: searches}
+    }
+    case 'SET_SEARCH_PARAMS':{
+      let initiator = state.searchResults[action.initiator];
+      let newSearchResult = Object.assign({}, initiator, {isInvalid: true, searchParams: Object.assign({}, initiator.searchParams, {...action.params})});
       let searches = Object.assign({}, state.searchResults, {[action.initiator]: newSearchResult});
       return {...state, searchResults: searches}
     }

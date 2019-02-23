@@ -6,6 +6,7 @@ import Footer from './Footer';
 import Home from '../containers/Home';
 import Movies from "../containers/Movies";
 import SearchResults from '../containers/SearchResults';
+import Genres from '../containers/Genres';
 
 let App = () => {
   return (
@@ -15,6 +16,7 @@ let App = () => {
         <Route path="/" exact component={Home} />
         <Route path="/home" component={Home} />
         <Route path="/movies" component={Movies} />
+        <Route path="/genres/:genre_id/movies" component={Genres} />
         <Route path="/search/movies" render={SearchResults} />
       </div>
       <Footer />

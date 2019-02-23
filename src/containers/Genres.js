@@ -1,5 +1,5 @@
 import { connect } from "react-redux";
-import { getNowPlaying, setSearchParams } from "../actions";
+import { setSearchParams, getMoviesForGenre } from "../actions";
 import MovieList from "../components/MovieList";
 
 let mapStateToProps = (state, ownProps) => ({
@@ -12,11 +12,11 @@ let mapStateToProps = (state, ownProps) => ({
     currentPage: 1,
     isInvalid: true
   },
-  title: "Now Playing"
+  title: "Genre"
 });
 
 let mapDispatchToProps = (dispatch, ownProps) => ({
-  executeSearch: (searchParams) => dispatch(getNowPlaying(ownProps.match.url, searchParams)),
+  executeSearch: (searchParams) => dispatch(getMoviesForGenre(ownProps.match.url, ownProps.match.params.genre_id, searchParams)),
   onPageChange: (pageNumber) => dispatch(setSearchParams(ownProps.match.url, {page: pageNumber}))
 });
 

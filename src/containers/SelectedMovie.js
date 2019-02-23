@@ -1,15 +1,23 @@
 import React, { Component } from "react";
 import { connect } from 'react-redux'
 import MovieDetails from "../components/MovieDetails";
-import { changeView, getMoviesForGenre, getMovieDetails } from '../actions';
+import { getMoviesForGenre, getMovieDetails } from '../actions';
 
 class SelectedMovie extends Component {
   constructor() {
     super();
   }
+
   componentDidMount() {
     this.props.getMovieDetails(this.props.match.params.movie_id);
   }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.match.params.movie_id !== prevProps.match.params.movie_id) {
+      this.props.getMovieDetails(this.props.match.params.movie_id);
+    }
+  }
+
   render() {
     return (
       <div>
@@ -21,13 +29,13 @@ class SelectedMovie extends Component {
 }
 
 const mapStateToProps = (state, ownProps) => ({
-  movie: state.moviesData.selectedMovie
+  movie: (state.moviesData.searchResults[ownProps.match.url] || {}).movie
 })
 
-const mapDispatchToProps = (dispatch) => ({
-  getMovieDetails: (movieId) => dispatch(getMovieDetails(movieId)),
+const mapDispatchToProps = (dispatch, ownProps) => ({
+  getMovieDetails: (movieId) => dispatch(getMovieDetails(ownProps.match.url, movieId)),
   selectGenre: (genre) => {
-    dispatch(getMoviesForGenre({genreId: genre.id, genreName: genre.name}, () => dispatch(changeView("RESULTS_LIST"))))
+    dispatch(getMoviesForGenre({genreId: genre.id, genreName: genre.name}))
   }
 })
 
