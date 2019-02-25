@@ -2,6 +2,10 @@ import { connect } from "react-redux";
 import { setSearchParams, getMoviesForGenre } from "../actions";
 import MovieList from "../components/MovieList";
 
+function titleCase(str) {
+  return str.toLowerCase().split(" ").map(_str => _str.charAt(0).toUpperCase() + _str.slice(1)).join(" ");
+}
+
 let mapStateToProps = (state, ownProps) => ({
   loading: state.moviesData.loading,
   data: state.moviesData.searchResults[ownProps.match.url] || {
@@ -12,7 +16,7 @@ let mapStateToProps = (state, ownProps) => ({
     currentPage: 1,
     isInvalid: true
   },
-  title: "Genre"
+  title: titleCase(ownProps.match.params.genre_name)
 });
 
 let mapDispatchToProps = (dispatch, ownProps) => ({

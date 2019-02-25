@@ -24,12 +24,10 @@ export let getMovies = (searchParams, cb) => {
   } 
 }
 
-export let searchMovies = (searchParams, cb) => {
-  var term = searchParams.term;
-  delete searchParams["term"];
+export let searchMovies = (initiator, searchParams, cb) => {
   return {
     type: SEARCH_MOVIES,
-    term,
+    initiator,
     searchParams,
     cb
   };

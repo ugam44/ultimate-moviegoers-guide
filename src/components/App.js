@@ -16,7 +16,7 @@ let App = () => {
         <Route path="/" exact component={Home} />
         <Route path="/home" component={Home} />
         <Route path="/movies" component={Movies} />
-        <Route path="/genres/:genre_id/movies" component={Genres} />
+        <Route path="/genres/:genre_id-:genre_name/movies" component={Genres} />
         <Route path="/search/movies" render={SearchResults} />
       </div>
       <Footer />

@@ -15,7 +15,7 @@ let MovieDetails = ({ movie }) => {
           <pre>{JSON.stringify(movie)}</pre>
           <h3>Genres</h3>
             {movie.genres.map((genre, index) => (
-              <Link className="badge badge-secondary" key={index} to={`/genres/${genre.id}/movies`}>{genre.name}</Link>
+              <Link className="badge badge-secondary" key={index} to={`/genres/${genre.id}-${genre.name}/movies`}>{genre.name}</Link>
             ))}
           <h3>Related</h3>
           <div id="relatedMoviesCarousel" className="carousel slide" data-ride="carousel" style={{width: "400px"}}>

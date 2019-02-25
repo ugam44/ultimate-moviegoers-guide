@@ -4,7 +4,7 @@ let xhr = new XhrService();
 let movieService = {
   "searchMovies": (payload) => {
     var queryString = xhr.generateQueryStringParams(payload.params);
-    var url = xhr.generateAPIUrl(`/search/movie?query=${payload.searchTerm}&${queryString}`);
+    var url = xhr.generateAPIUrl(`/search/movie?${queryString}`);
     return xhr.get(url).then((response) => {
       var data = response.data;
       data.searchTerm = payload.searchTerm;

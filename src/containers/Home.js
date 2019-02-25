@@ -7,19 +7,11 @@ let Home = (props) => {
   return (
     <div>
       <h1>I am home!</h1>
-      <MovieList {...props} />
     </div>
   )
 }
 
 let mapStateToProps = (state) => ({
-  moviesData: {...state.moviesData},
-  movies: state.moviesData.movies,
-  currentPage: state.moviesData.currentPage,
-  totalPages: state.moviesData.totalPages,
-  searchParams: {
-    page: state.moviesData.currentPage
-  }
 });
 
 let mapDispatchToProps = (dispatch, ownProps) => ({

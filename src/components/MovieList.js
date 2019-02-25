@@ -21,6 +21,7 @@ class MovieList extends Component {
   }
 
   componentDidUpdate(prevProps) {
+    debugger;
     if (!this.compareObjsProps(prevProps.data.searchParams, this.props.data.searchParams)) {
       this.props.executeSearch(this.props.data.searchParams);
     }
@@ -32,7 +33,7 @@ class MovieList extends Component {
       <div style={{marginTop: "20px"}}>
         {title && (
           <div>
-            <h1>{title}</h1>
+            <h1>"{title}" Movies</h1>
             <hr/>
           </div>
         )}

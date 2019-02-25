@@ -54,8 +54,7 @@ const dataService = store => next => action => {
   var initiator = action.initiator;
   switch (action.type) {
     case 'SEARCH_MOVIES': {
-      let searchTerm = action.term;
-      let payload = {searchTerm, params, initiator, cb: action.cb};
+      let payload = {params, initiator, cb: action.cb};
       if (shouldFetchMovies(currState, initiator, params)) {
         getApi(movieService, "searchMovies", payload, action.type);
       }
