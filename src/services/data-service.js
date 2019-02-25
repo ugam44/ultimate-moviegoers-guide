@@ -1,6 +1,8 @@
 import movieService from "./movie-service";
+import { setLoading } from "../actions";
 
 const apiMapCallback = next => (service, serviceFn, payload, action) => {
+  next(setLoading(true));
   return service[serviceFn](payload).then((data) => {
     if (payload && payload.cb) {
       payload.cb(data, undefined);
@@ -27,6 +29,8 @@ const apiMapCallback = next => (service, serviceFn, payload, action) => {
         initiator: payload.initiator
       }
     });
+  }).finally(() => {
+    next(setLoading(false));
   });
 }
 

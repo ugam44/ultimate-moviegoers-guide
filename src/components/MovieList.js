@@ -21,7 +21,7 @@ class MovieList extends Component {
   }
 
   componentDidUpdate(prevProps) {
-    debugger;
+    // debugger;
     if (!this.compareObjsProps(prevProps.data.searchParams, this.props.data.searchParams)) {
       this.props.executeSearch(this.props.data.searchParams);
     }
@@ -37,7 +37,7 @@ class MovieList extends Component {
             <hr/>
           </div>
         )}
-        {!loading && (
+        {!loading && movies.length > 0 && (
           <section className="col-xs-12 col-sm-6 col-md-12">
             <Paging onPageChange={onPageChange} currentPage={currentPage} totalPages={totalPages} />
             {movies.map((movie, index) => {
@@ -46,6 +46,11 @@ class MovieList extends Component {
                 )
             })}		
             <Paging onPageChange={onPageChange} currentPage={currentPage} totalPages={totalPages} />
+          </section>
+        )}
+        {!loading && movies.length === 0 && (
+          <section className="col-xs-12 col-sm-6 col-md-12">
+            <h3>No Results Found <i className="fa fa-frown-o"></i></h3>
           </section>
         )}
         {loading && (

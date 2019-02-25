@@ -100,3 +100,8 @@ export let setSearchParams = (initiator, params) => ({
   initiator,
   params
 });
+
+export let setLoading = (isLoading) => ({
+  type: "SET_LOADING",
+  isLoading
+});

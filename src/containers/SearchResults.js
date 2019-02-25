@@ -37,7 +37,7 @@ let mapStateToProps = (state, ownProps) => {
 let mapDispatchToProps = (dispatch, ownProps) => ({
   executeSearch: (searchParams) => {
     let searchTerm = ownProps.location.search.match(/term=[^&]*/)[0].split("=")[1];
-    debugger;
+    // debugger;
     dispatch(searchMovies(ownProps.match.url, {...searchParams, query: searchTerm}))
   },
   onPageChange: (pageNumber) => dispatch(setSearchParams(ownProps.match.url, {page: pageNumber}))
