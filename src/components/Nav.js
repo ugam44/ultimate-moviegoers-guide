@@ -1,9 +1,9 @@
 import React from "react";
 import SearchMovies from "../containers/SearchMovies";
 import { connect } from "react-redux";
-import { Link } from "react-router-dom";
+import { Link, withRouter } from "react-router-dom";
 
-let Nav = ({ filter }) => {
+let Nav = ({ currTab }) => {
   var links = [
     {filter: "POPULAR", label: "Popular", path: "/movies/popular"},
     {filter: "NOW_PLAYING", label: "Now Playing", path: "/movies/now-playing"},
@@ -18,7 +18,7 @@ let Nav = ({ filter }) => {
       <div className="collapse navbar-collapse" id="navbarCollapse">
         <ul className="navbar-nav mr-auto">
           {links.map((link, index) => (
-            <li key={index} className={"nav-item " + (filter === link.filter ? "active" : "")}>
+            <li key={index} className={"nav-item " + (currTab === link.path ? "active" : "")}>
               <Link className="nav-link" to={link.path}>{link.label}</Link>
             </li>
           ))}
@@ -29,8 +29,8 @@ let Nav = ({ filter }) => {
   )
 };
 
-let mapStateToProps = (state) => ({
-  filter: state.moviesData.filter
+let mapStateToProps = (state, ownProps) => ({
+  currTab: ownProps.location.pathname
 })
 
-export default connect(mapStateToProps)(Nav);
+export default withRouter(connect(mapStateToProps)(Nav));

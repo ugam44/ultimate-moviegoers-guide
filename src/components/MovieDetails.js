@@ -3,16 +3,29 @@ import { Link } from "react-router-dom";
 import "../assets/styles/MovieDetails.css";
 
 let imagePath = "https://image.tmdb.org/t/p/w500";
+function getImagePath(path) {
+  return path ? imagePath + path : "http://www.smartstraps.com/wp-content/uploads/No-Image-Available.jpg";
+}
 let MovieDetails = ({ movie }) => {
   var similarMovies = movie && movie.similar.results.filter(similarMovie => similarMovie.backdrop_path);
-  function getImagePath(path) {
-    return path ? imagePath + path : "http://www.smartstraps.com/wp-content/uploads/No-Image-Available.jpg";
-  }
+  let releaseInfo = movie && movie.releases.countries[0];
   return (
     <div>
       {movie && (
         <div>
+          <h1>{movie.title}</h1>
           <pre>{JSON.stringify(movie)}</pre>
+          <h3>Links</h3>
+          <div>
+            {!!movie.external_ids.instagram_id && <span title="Movie Instagram"><a href={`https://instagram.com/${movie.external_ids.instagram_id}`} target="_blank"><i className="fa fa-lg fa-instagram" style={{color: "#333"}}></i></a></span>}
+            {!!movie.external_ids.twitter_id && <span title="Movie Twitter"><a href={`https://twitter.com/${movie.external_ids.twitter_id}`} target="_blank"><i className="fa fa-lg fa-twitter" style={{color: "#333"}}></i></a></span>}
+            {!!movie.external_ids.facebook_id && <span title="Movie Facebook"><a href={`https://facebook.com/${movie.external_ids.facebook_id}`} target="_blank"><i className="fa fa-lg fa-facebook" style={{color: "#333"}}></i></a></span>}
+            {!!movie.homepage && <span title="Movie Homepage"><a href={movie.homepage} target="_blank"><i className="fa fa-lg fa-film" style={{color: "#333"}}></i></a></span>}
+          </div>
+          <h3>Rating</h3>
+          <div>
+            <span className="badge badge-secondary">{releaseInfo.certification}</span>
+          </div>
           <h3>Genres</h3>
             {movie.genres.map((genre, index) => (
               <Link className="badge badge-secondary" key={index} to={`/genres/${genre.id}-${genre.name}/movies`}>{genre.name}</Link>

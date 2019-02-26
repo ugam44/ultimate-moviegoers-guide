@@ -55,7 +55,7 @@ class MovieList extends Component {
         )}
         {loading && (
           <section className="col-12" style={{textAlign: "center"}}>
-            <i class="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
+            <i className="fa fa-circle-o-notch fa-spin fa-3x fa-fw"></i>
           </section>
         )}
       </div>
