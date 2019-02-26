@@ -10,7 +10,7 @@ let SearchResults = (props) => {
     <div>
       <hgroup style={{marginBottom: "20px"}}>
         <h1>Search Results</h1>
-        <h2 className="lead"><strong className="text-danger">{totalResults}</strong> results were found for <strong className="text-danger">{searchTerm}</strong></h2>
+        <h2 className="lead"><strong className="tmdb-primary-text">{totalResults}</strong> results were found for <strong className="tmdb-primary-text">{searchTerm}</strong></h2>
       </hgroup>
       <MovieList {...props} />
     </div>

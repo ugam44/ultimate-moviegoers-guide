@@ -12,7 +12,7 @@ let App = () => {
   return (
     <div>
       <Nav />
-      <div className="container" style={{padding: "60px 15px 0"}}>
+      <div className="container" style={{padding: "65px 15px 5px"}}>
         <Route path="/" exact component={Home} />
         <Route path="/home" component={Home} />
         <Route path="/movies" component={Movies} />

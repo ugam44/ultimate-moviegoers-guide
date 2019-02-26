@@ -1,5 +1,5 @@
 import React from "react";
-
+import "../assets/styles/Paging.css";
 let Paging = ({ onPageChange, currentPage, totalPages }) => {
   // movie API limits page parameter from 1-1000
   totalPages = Math.min(totalPages, 1000);

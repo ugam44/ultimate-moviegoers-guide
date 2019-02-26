@@ -3,3 +3,54 @@
   padding: 10px;
   bottom: 5px;
 }
+
+.rating-bar-outline {
+  display: inline-block; 
+  width: 200px; 
+  border: 2px solid #333;
+  border-radius: 6px; 
+  margin: 0 5px;
+  position: relative; 
+  height: 2rem;
+  text-align: center;
+}
+
+.rating-bar-text {
+  font-size: 18px;
+  font-weight: bold;
+  position: absolute;
+  width: 100%;
+}
+
+.rating-bar-fill {
+  border-radius: 3px; 
+  height: calc(2rem - 4px);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.rating-bar-outline.negative .rating-bar-fill {
+  background-color: rgba(255, 0, 0, 0.7);
+}
+.rating-bar-outline.neutral .rating-bar-fill {
+  background-color: rgba(255, 255, 0, 0.7);
+}
+.rating-bar-outline.positive .rating-bar-fill {
+  background-color: rgba(0, 255, 0, 0.7);
+}
+
+.movie-header {
+  padding: 20px 0; 
+  border-top: 2px solid #333; 
+  border-bottom: 2px solid #333; 
+}
+
+.movie-facts {
+  padding: 10px 0;
+  border-bottom: 2px solid #333;
+}
+
+.mt-10 {
+  margin-top: 10px;
+}

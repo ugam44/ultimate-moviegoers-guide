@@ -7,9 +7,26 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: whitesmoke;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
+}
+
+.tmdb-primary-text {
+  color: #01d277;
+}
+
+.tmdb-secondary-text {
+  color: #081c24;
+}
+
+.tmdb-primary-bg {
+  background-color: #01d277;
+}
+
+.tmdb-secondary-bg {
+  background-color: #081c24;
 }

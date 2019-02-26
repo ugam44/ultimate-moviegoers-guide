@@ -1,0 +1,21 @@
+.page-item .page-link {
+  background-color: #081c24;
+  color: rgb(1, 210, 119);
+}
+
+.page-item.active .page-link {
+  background-color: rgb(1, 210, 119);
+  border-color: rgb(1, 190, 90);
+  color: #081c24;
+}
+
+.page-item .page-link:hover {
+  background-color: rgba(1, 210, 119, 0.7);
+  border-color: rgb(1, 190, 90);
+  color: #081c24;
+}
+
+.page-item.disabled .page-link {
+  color: rgba(1, 210, 119, 0.4) !important;
+  background-color: #081c24 !important;
+}

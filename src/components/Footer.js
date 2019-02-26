@@ -3,7 +3,8 @@ import "../assets/styles/Footer.css"
 let Footer = () => (
   <footer className="footer">
     <div className="container">
-      <span className="text-muted">Place sticky footer content here.</span>
+      <img src="/tmdb-attribution-logo-long-secondary.svg" height="60" alt="TMDb Attribution Logo"/>
+      <span className="text-muted">{' '}This product uses the TMDb API but is not endorsed or certified by TMDb.</span>
     </div>
   </footer>
 );

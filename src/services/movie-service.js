@@ -54,7 +54,7 @@ let movieService = {
     });
   },
   "getMovieDetails": (payload) => {
-    var url = xhr.generateAPIUrl(`/movie/${payload.movieId}?append_to_response=reviews,releases,similar,external_ids`);
+    var url = xhr.generateAPIUrl(`/movie/${payload.movieId}?append_to_response=reviews,videos,releases,similar,external_ids`);
     return xhr.get(url).then((response) => {
       var data = response.data;
       data.releases.countries = data.releases.countries.filter(country => country["iso_3166_1"] === "US");
