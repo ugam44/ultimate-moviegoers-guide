@@ -1,10 +1,10 @@
 import * as actions from "./index";
 
 describe('index actions', () => {
-  it('should successfully change user name', () => {
-    expect(actions.changeName("Mike")).toEqual({
-      type: "CHANGE_NAME",
-      name: "Mike"
+  it('should successfully set the loading flag', () => {
+    expect(actions.setLoading(true)).toEqual({
+      type: "SET_LOADING",
+      isLoading: true
     });
   });
 });
