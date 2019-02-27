@@ -12,7 +12,7 @@ let xhr = new XhrService();
 let _movieService = movieService({xhrService: xhr});
 
 
-it('renders without crashing', () => {
+it('renders with services, routing, and middleware', () => {
   const div = document.createElement('div');
   let store = createStore(rootReducer, {}, applyMiddleware(dataService({movieService: _movieService})));
 
