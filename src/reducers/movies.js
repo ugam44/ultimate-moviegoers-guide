@@ -27,12 +27,6 @@ let movies = (state = defaultState, action) => {
       let searches = Object.assign({}, state.searchResults, {[action.query.initiator]: searchResults});
       return {...state, searchResults: searches};
     }
-    case 'SET_CURRENT_PAGE':{
-      let initiator = state.searchResults[action.initiator] || {};
-      let newSearchResult = Object.assign({}, initiator, {isInvalid: true, searchParams: Object.assign({}, initiator.searchParams, {page: action.page})});
-      let searches = Object.assign({}, state.searchResults, {[action.initiator]: newSearchResult});
-      return {...state, searchResults: searches};
-    }
     case 'SET_SEARCH_PARAMS':{
       let initiator = state.searchResults[action.initiator] || {};
       let newSearchResult = Object.assign({}, initiator, {isInvalid: true, searchParams: Object.assign({}, initiator.searchParams, {...action.params})});

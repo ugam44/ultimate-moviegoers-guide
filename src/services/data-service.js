@@ -1,16 +1,19 @@
-import movieService from "./movie-service";
 import { setLoading } from "../actions";
 
+// generic structure for all requests
 const apiMapCallback = next => (service, serviceFn, payload, action) => {
+  // set loading flag
   next(setLoading(true));
   return service[serviceFn](payload).then((data) => {
     if (payload && payload.cb) {
       payload.cb(data, undefined);
     }
+    // dispatch success action to update state
     next({
       type: `${action}_SUCCESS`,
       payload: data,
-      // pass query data so we can save to app state to re execute if necessary
+      // store query information so we can know if the request needs
+      // to be initiated again, or if we can load from memory
       query: {
         params: payload.params,
         initiator: payload.initiator
@@ -20,37 +23,39 @@ const apiMapCallback = next => (service, serviceFn, payload, action) => {
     if (payload && payload.cb) {
       payload.cb(undefined, err);
     }
+    // dispatch error action to update state on error if necessary
     next({
       type: `${action}_ERROR`,
       err,
-      // pass query data so we can save to app to re execute if necessary
       query: {
         params: payload.params,
         initiator: payload.initiator
       }
     });
   }).finally(() => {
+    // remove loading status after everything has been done
     next(setLoading(false));
   });
 }
 
+// shallow compare object values
 function compareObjsProps(obj1 = {}, obj2 = {}) {
   var o1Keys = Object.keys(obj1);
   var o2Keys = Object.keys(obj2);
-  
   return o1Keys.length === o2Keys.length && o1Keys.every(key => o2Keys.includes(key) && obj1[key] === obj2[key]);
 }
 
 function shouldFetchMovies(state, initiator, params) {
   var currResults = state.moviesData.searchResults[initiator];
+  // fetch movies if there are no results for that initiator, if results are invalid, or if params are different
   if (!currResults || currResults.isInvalid || !compareObjsProps(params, currResults.searchParams)) {
-    // fetch movies if there are no results for that initiator, if results are invalid, or if params are different
     return true;
   }
   return false;
 }
 
-const dataService = store => next => action => {
+// pass in movieService to that mock service can be used for testing
+const dataService = ({movieService}) => store => next => action => {
   next(action);
   const getApi = apiMapCallback(next);
   var params = action.searchParams || {};

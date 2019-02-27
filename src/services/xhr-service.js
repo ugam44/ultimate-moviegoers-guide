@@ -21,10 +21,10 @@ export class XhrService {
     return axios.get(url)
   }
   post (url, payload) {
-    return axios.get(url, payload)
+    return axios.post(url, payload)
   }
   put (url, payload) {
-    return axios.get(url, payload)
+    return axios.put(url, payload)
   }
   delete (url) {
     return axios.delete(url)

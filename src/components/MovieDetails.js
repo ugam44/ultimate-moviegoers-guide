@@ -142,10 +142,10 @@ let MovieDetails = ({ movie }) => {
           <h3 className="mt-10">Production Companies</h3>
           <div className="card-deck">
             {!!movie.production_companies && movie.production_companies.map((company, index) => (
-              <div className="card border-light" key={index} style={{maxWidth: "200px", background: "transparent"}}>
+              <div className="card border-light" key={index} style={{maxWidth: "150px", minWidth: "150px", background: "transparent"}}>
                 <img className="card-img-top" src={getImagePath(company.logo_path, 200)} alt={`${company.name} logo`} />
                 <div className="card-body">
-                  <h5 style={{textAlign: "center"}}>{company.name}</h5>
+                  <h5 style={{textAlign: "center", fontSize: "1.05rem"}}>{company.name}</h5>
                 </div>
               </div>
             ))}

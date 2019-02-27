@@ -11,7 +11,8 @@ let Nav = ({ currTab }) => {
   ];
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top tmdb-secondary-bg">
-      <Link className="navbar-brand" to="/home">Ultimate Moviegoers</Link>
+      {/* <Link className="navbar-brand" to="/home">Ultimate Moviegoers</Link> */}
+      <Link className="navbar-brand" to="/home" style={{position: "relative", width: "120px"}}><img src="/nav-logo.png" alt="UMG Logo" style={{height: "90px", position: "absolute", top: "-2.6rem", left: "0"}} /></Link>
       <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span className="navbar-toggler-icon"></span>
       </button>

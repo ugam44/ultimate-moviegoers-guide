@@ -9,9 +9,13 @@ import { Provider } from "react-redux";
 import rootReducer from "./reducers";
 import App from "./components/App";
 import dataService from "./services/data-service";
+import movieService from "./services/movie-service";
+import { XhrService } from "./services/xhr-service";
 import { BrowserRouter as Router, Route } from "react-router-dom";
+let xhr = new XhrService();
+let _movieService = movieService({xhrService: xhr});
 
-let store = createStore(rootReducer, {}, applyMiddleware(dataService));
+let store = createStore(rootReducer, {}, applyMiddleware(dataService({movieService: _movieService})));
 
 render( 
   <Provider store={store}>
