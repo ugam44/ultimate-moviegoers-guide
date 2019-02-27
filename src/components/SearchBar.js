@@ -1,6 +1,6 @@
 import React from "react";
 
-let SearchBar = ({ onSearch, searchTerm }) => {
+let SearchBar = ({ onSearch }) => {
   let searchTermInput;
   let inputDebounceTimeout;
 
@@ -33,7 +33,7 @@ let SearchBar = ({ onSearch, searchTerm }) => {
   return (
     <form className="form-inline mt-2 mt-md-0" onSubmit={handleSubmit}>
       <input className="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search" 
-            ref={node => (searchTermInput = node)} onInput={handleInput} defaultValue={searchTerm}/>
+            ref={node => (searchTermInput = node)} onInput={handleInput} />
       <button className="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
   );

@@ -1,9 +1,3 @@
-.carousel-text-container {
-  background: rgba(0,0,0,0.6);
-  padding: 10px;
-  bottom: 5px;
-}
-
 .rating-bar-outline {
   display: inline-block; 
   width: 200px; 
@@ -42,7 +36,7 @@
 
 .movie-header {
   padding: 20px 0; 
-  border-top: 2px solid #333; 
+  /* border-top: 2px solid #333;  */
   border-bottom: 2px solid #333; 
 }
 

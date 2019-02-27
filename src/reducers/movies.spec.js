@@ -1,7 +1,7 @@
 import * as actions from "../actions";
 import movies from "./movies";
 
-let defaultState = {filter: "", searchResults: {}, loading: false};
+let defaultState = {searchResults: {}, loading: false};
 let searchResultsSeed = {
   "/movies/now-playing": {
     currentPage: 1,

@@ -127,9 +127,25 @@ const dataService = store => next => action => {
     }
     case 'GET_MOVIE_DETAILS': {
       let payload = {movieId: action.movieId, initiator, cb: action.cb};
-      console.log(initiator);
       if (shouldFetchMovies(currState, initiator, params)) {
         getApi(movieService, "getMovieDetails", payload, action.type);
+      }
+      else {
+        next({
+          type: `${action}_SUCCESS`,
+          payload: currState.moviesData.searchResults[initiator],
+          query: {
+            params: currState.moviesData.searchResults[initiator].searchParams,
+            initiator
+          }
+        })
+      }
+      break;
+    }
+    case 'GET_LATEST_MOVIE': {
+      let payload = {initiator, cb: action.cb};
+      if (shouldFetchMovies(currState, initiator, params)) {
+        getApi(movieService, "getLatestMovie", payload, action.type);
       }
       else {
         next({

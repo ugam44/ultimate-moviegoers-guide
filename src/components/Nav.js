@@ -5,9 +5,9 @@ import { Link, withRouter } from "react-router-dom";
 
 let Nav = ({ currTab }) => {
   var links = [
-    {filter: "POPULAR", label: "Popular", path: "/movies/popular"},
-    {filter: "NOW_PLAYING", label: "Now Playing", path: "/movies/now-playing"},
-    {filter: "TOP_RATED", label: "Top Rated", path: "/movies/top-rated"},
+    {label: "Popular", path: "/movies/popular"},
+    {label: "Now Playing", path: "/movies/now-playing"},
+    {label: "Top Rated", path: "/movies/top-rated"},
   ];
   return (
     <nav className="navbar navbar-expand-md navbar-dark fixed-top tmdb-secondary-bg">

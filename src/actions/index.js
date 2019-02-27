@@ -3,26 +3,10 @@ export let GET_NOW_PLAYING = "GET_NOW_PLAYING";
 export let GET_POPULAR = "GET_POPULAR";
 export let GET_TOP_RATED = "GET_TOP_RATED";
 export let GET_MOVIE_DETAILS = "GET_MOVIE_DETAILS";
-export let SET_SEARCH_TERM = "SET_SEARCH_TERM";
-export let SET_FILTER = "SET_FILTER";
-export let SET_SELECTED_MOVIE = "SET_SELECTED_MOVIE";
-export let SET_VIEW = "SET_VIEW";
 export let GET_MOVIES_FOR_GENRE = "GET_MOVIES_FOR_GENRE";
-export let GET_PAGE = "GET_PAGE";
-
-export let getMovies = (searchParams, cb) => {
-  switch(searchParams.movieFilter) {
-    case "TOP_RATED":
-      return getTopRated(searchParams, cb);
-    case "NOW_PLAYING":
-      return getNowPlaying("/movies/now-playing", searchParams, cb);
-    case "HOME":
-    case "POPULAR":
-      return getPopular(searchParams, cb);
-    default:
-      return searchMovies(searchParams, cb);
-  } 
-}
+export let GET_LATEST_MOVIE = "GET_LATEST_MOVIE";
+export let SET_SEARCH_PARAMS = "SET_SEARCH_PARAMS";
+export let SET_LOADING = "SET_LOADING";
 
 export let searchMovies = (initiator, searchParams, cb) => {
   return {
@@ -75,33 +59,19 @@ export let getMoviesForGenre = (initiator, genreId, searchParams, cb) => ({
   cb
 });
 
-export let setSearchTerm = (searchTerm) => ({
-  type: SET_SEARCH_TERM,
-  searchTerm
-});
-
-export let setFilter = (filter) => ({
-  type: SET_FILTER,
-  filter
-});
-
-export let clearSelectedMovie = () => ({
-  type: SET_SELECTED_MOVIE,
-  selectedMovie: null
-});
-
-export let changeView = (view) => ({
-  type: SET_VIEW,
-  view
-});
+export let getLatestMovie = (initiator, cb) => ({
+  type: GET_LATEST_MOVIE,
+  initiator,
+  cb
+})
 
 export let setSearchParams = (initiator, params) => ({
-  type: "SET_SEARCH_PARAMS",
+  type: SET_SEARCH_PARAMS,
   initiator,
   params
 });
 
 export let setLoading = (isLoading) => ({
-  type: "SET_LOADING",
+  type: SET_LOADING,
   isLoading
 });

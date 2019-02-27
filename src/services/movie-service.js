@@ -63,6 +63,15 @@ let movieService = {
       throw new Error(err);
     })
   },
+  "getLatestMovie": (payload) => {
+    var url = xhr.generateAPIUrl(`/movie/latest`);
+    return xhr.get(url).then((response) => {
+      var data = response.data;
+      return data;
+    }).catch((err) => {
+      throw new Error(err);
+    })
+  }
 }
 
 export default movieService;

@@ -14,7 +14,7 @@ let App = () => {
       <Nav />
       <div className="container" style={{padding: "65px 15px 5px"}}>
         <Route path="/" exact component={Home} />
-        <Route path="/home" component={Home} />
+        <Route path="/home" exact component={Home} />
         <Route path="/movies" component={Movies} />
         <Route path="/genres/:genre_id-:genre_name/movies" component={Genres} />
         <Route path="/search/movies" render={SearchResults} />
